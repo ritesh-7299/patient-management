@@ -1,0 +1,41 @@
+# === Java ===
+*.class
+*.log
+hs_err_pid*
+
+# === Maven ===
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+authservice.yaml
+
+# === IntelliJ IDEA ===
+#.idea/
+#*.iml
+#*.iws
+#*.ipr
+#out/
+
+# === Eclipse (if some devs use it) ===
+.project
+.classpath
+.settings/
+bin/
+
+# === OS-specific ===
+.DS_Store
+Thumbs.db
+
+# === Spring Boot runtime data ===
+/logs/
+/tmp/
+/*.db
+/*.h2.db
+/*.mv.db
