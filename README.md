@@ -1,178 +1,159 @@
-# Patient Management System
+# 🩺 Patient Management System
 
-A microservice-based backend system for managing patient data, authentication, billing, etc. Built using Java Spring Boot, with an API Gateway and separate services for authentication, patient services, billing, etc.
+A **microservices-based backend system** for managing patient data, authentication, and billing. Built with **Java Spring Boot**, the system includes an **API Gateway** and separate services for authentication, patient management, and billing.
 
 ---
 
 ## Table of Contents
 
-- [Features](#features)  
-- [Architecture](#architecture)  
-- [Tech Stack](#tech-stack)  
-- [Setup & Installation](#setup--installation)  
-- [Services & Endpoints](#services--endpoints)  
-- [Security](#security)  
-- [Configuration](#configuration)  
-- [Running Tests](#running-tests)  
-- [Roadmap / Future Work](#roadmap--future-work)  
-- [Contributing](#contributing)  
-- [License](#license)
+* [Features](#features)
+* [Architecture](#architecture)
+* [Tech Stack](#tech-stack)
+* [Setup & Installation](#setup--installation)
+* [Services & Endpoints](#services--endpoints)
+* [Security](#security)
+* [Configuration](#configuration)
+* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+* [License](#license)
 
 ---
 
 ## Features
 
-- User authentication & authorization  
-- Role-based access (if applicable)  
-- Patient CRUD operations (create, read, update, delete)  
-- Billing service  
-- API Gateway for routing and request filtering  
-- (Optional) Analytics service  
-- Token validation / secure endpoints
+* User authentication and JWT-based authorization
+* Role-based access control
+* CRUD operations for patient data
+* Billing service for payments and invoices
+* API Gateway for routing, request filtering, and token validation
+* Optional analytics and reporting service
 
 ---
 
 ## Architecture
 
-Here’s a high-level overview of how this system is structured:
-
 ```
- Client → API Gateway → [Auth Service]  
-                   ↘ [Patient Service]  
-                   ↘ [Billing Service]  
-                   ↘ [Analytics Service] (if present)
+Client → API Gateway → [Auth Service]
+                  ↘ [Patient Service]
+                  ↘ [Billing Service]
+                  ↘ [Analytics Service] (optional)
 ```
 
-- **API Gateway** handles routing, authorization checks, and acts as the single entry point.  
-- **Auth Service** issues JWTs and validates incoming requests.  
-- **Patient Service** manages patient data.  
-- **Billing Service** handles billing and payments.  
-- **Analytics Service** (if any) for reports and metrics.  
+* **API Gateway:** Entry point for all requests, handles routing and authorization
+* **Auth Service:** Issues and validates JWTs
+* **Patient Service:** Manages patient records
+* **Billing Service:** Handles billing operations
+* **Analytics Service:** Optional service for reports and metrics
 
 ---
 
 ## Tech Stack
 
-| Component | Technology |
-|-----------|------------|
-| Language | Java |
-| Framework | Spring Boot / Spring Cloud Gateway / Spring Security |
-| Build Tool | Maven |
-| Communication | REST / gRPC |
-| Database(s) | PostgreSQL |
-| Auth / Security | JWT tokens, possibly OAuth2 resource server approach |
-| API Documentation | swagger |
-| Others | Docker (if applicable), CI/CD tools, etc. |
+| Component         | Technology                                         |
+| ----------------- | -------------------------------------------------- |
+| Language          | Java                                               |
+| Framework         | Spring Boot, Spring Cloud Gateway, Spring Security |
+| Build Tool        | Maven                                              |
+| Communication     | REST / gRPC                                        |
+| Database          | PostgreSQL                                         |
+| Auth / Security   | JWT tokens                                         |
+| API Documentation | Swagger                                            |
+| Deployment        | Docker, (optional) Kubernetes                      |
+| Messaging         | Kafka                                              |
 
 ---
 
 ## Setup & Installation
 
-1. **Prerequisites**  
-   - Java (version X or above)  
-   - Maven  
-   - Database setup PostgreSQL  
-   - (Optional) Docker if you use containers  
+1. **Prerequisites**
 
-2. **Clone the repository**
+   * Java 17+
+   * Maven
+   * PostgreSQL database
+   * Docker (optional)
 
-   ```bash
-   git clone https://github.com/ritesh-7299/patient-management.git
-   cd patient-management
-   ```
+2. **Clone the repo**
 
-3. **Configure environment / properties**
+```bash
+git clone https://github.com/ritesh-7299/patient-management.git
+cd patient-management
+```
 
-   Each service may have its own `application.properties` or `application.yml`. You’ll need to set things like:
-
-   - Database connection (URL, username, password)  
-   - Auth service URL / JWK / public key (if using JWT)  
-   - Ports for each microservice  
+3. **Configure environment variables** in each service’s `application.yml` or `application.properties` (database credentials, ports, JWT settings).
 
 4. **Build and Run**
 
-   ```bash
-   mvn clean install
-   # Then run each service, e.g.
-   cd api-gateway && mvn spring-boot:run  
-   cd auth-service && mvn spring-boot:run  
-   cd patient-service && mvn spring-boot:run  
-   # etc.
-   ```
+```bash
+mvn clean install
+# Example for running services:
+cd api-gateway && mvn spring-boot:run
+cd auth-service && mvn spring-boot:run
+cd patient-service && mvn spring-boot:run
+```
 
-5. **Testing**
-
-   Use Postman / curl or any REST client to hit the available endpoints.
+5. **Test endpoints** using Postman, curl, or any REST client.
 
 ---
 
 ## Services & Endpoints
 
-Below are some of the services and example endpoints (adjust as necessary for your implementation):
-
-| Service | Endpoint | HTTP Method | Description |
-|---------|----------|-------------|-------------|
-| Auth Service | `/auth/login` | POST | Authenticate user & get JWT |
-| Auth Service | `/auth/validate` | GET | Validate token (if used) |
-| Patient Service | `/patients` | GET / POST | List all patients / Create a patient |
-| Patient Service | `/patients/{id}` | GET / PUT / DELETE | View / Update / Delete patient by ID |
-| Billing Service | `/billing` | POST / GET | Billing operations |
+| Service         | Endpoint         | Method             | Description                    |
+| --------------- | ---------------- | ------------------ | ------------------------------ |
+| Auth Service    | `/auth/login`    | POST               | Authenticate and obtain JWT    |
+| Auth Service    | `/auth/validate` | GET                | Validate JWT token             |
+| Patient Service | `/patients`      | GET / POST         | List all / create patient      |
+| Patient Service | `/patients/{id}` | GET / PUT / DELETE | View / update / delete patient |
+| Billing Service | `/billing`       | GET / POST         | Billing operations             |
 
 ---
 
 ## Security
 
-- JWT tokens are used for authentication.  
-- API Gateway filters requests to verify the token before forwarding to downstream services.  
-- Only authorized roles (if implemented) can access certain endpoints.  
-- (Optional) Token revocation or expiry management.
+* JWT-based authentication for all services
+* API Gateway validates tokens before forwarding requests
+* Role-based access control to restrict endpoints
 
 ---
 
 ## Configuration
 
-Environment-specific configs are stored in `application.yml` or `application.properties` for each service. Key configuration items:
+Key configs are in each service’s `application.yml` or `application.properties`:
 
-- `server.port` for each service  
-- Database credentials  
-- `auth.service.url` in API Gateway  
-- JWT issuer / public key or JWK set URI  
-- (If applicable) any external dependencies, message brokers, etc.
-
+* `server.port` for services
+* Database connection settings
+* `auth.service.url` for API Gateway
+* JWT issuer / public key
 
 ---
 
 ## Roadmap / Future Work
 
-- Move validation in API Gateway from remote call to local JWT signature verification  
-- Implement role‐based access control (if not fully done)  
-- Add more services (e.g. Notification, Logging, Monitoring)  
-- Add retries, circuit breakers for microservices resilience  
-- Deploy with Docker / Kubernetes  
-- Add automated tests, coverage metrics  
+* Move JWT validation in API Gateway to local signature verification
+* Full role-based access control
+* Add services for notifications, logging, and monitoring
+* Implement retries and circuit breakers for resilience
+* Docker / Kubernetes deployment
+* Automated testing with coverage metrics
 
 ---
 
 ## Contributing
 
-Thank you for considering contributing! Here are a few guidelines:
-
-1. Fork the repo  
-2. Create a feature branch (`git checkout -b feature/YourFeature`)  
-3. Write tests and update code  
-4. Commit & push your changes  
-5. Open a Pull Request  
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/YourFeature`)
+3. Add tests and implement your feature
+4. Commit and push changes
+5. Open a Pull Request
 
 ---
 
 ## License
 
-*MIT*
+MIT
 
 ---
 
 ## Contact
 
-Ritesh Macwan — riteshmacwan07@gmail.com  
-
-Project Link: [https://github.com/ritesh-7299/patient-management](https://github.com/ritesh-7299/patient-management)
+Ritesh Macwan — [riteshmacwan07@gmail.com](mailto:riteshmacwan07@gmail.com)
+Project Link: [Patient Management System](https://github.com/ritesh-7299/patient-management)
