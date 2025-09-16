@@ -7,16 +7,22 @@
         <list>
           <option value="patient-service" />
           <option value="analytics-service" />
+          <option value="infrastructure" />
+          <option value="infrastructure" />
         </list>
       </option>
       <option name="ignoredPackages">
         <list>
           <option value="org.apache.commons:commons-lang3:3.17.0" />
           <option value="commons-io:commons-io:2.11.0" />
+          <option value="io.netty:netty-common:4.1.115.Final" />
+          <option value="io.netty:netty-handler:4.1.115.Final" />
         </list>
       </option>
       <option name="ignoredReasons">
         <list>
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />
         </list>
