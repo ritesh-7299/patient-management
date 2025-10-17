@@ -1,5 +1,9 @@
 package com.pm.apigateway.util;
 
+import com.pm.commonmodels.enums.RoleType;
+import com.pm.commonmodels.security.AuthUser;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -35,5 +39,12 @@ public class JwtUtil {
         } catch (JwtException e) {
             throw new JwtException("Invalid key");
         }
+    }
+
+    public AuthUser parseToken(String token) {
+        Claims body = Jwts.parser().verifyWith((SecretKey) secretKey).build().parseSignedClaims(token).getBody();
+        String email = body.getSubject();
+        String role = body.get("role").toString();
+        return new AuthUser(email, RoleType.valueOf(role));
     }
 }

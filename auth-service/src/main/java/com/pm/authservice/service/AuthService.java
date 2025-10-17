@@ -5,7 +5,7 @@ import com.pm.authservice.dto.SignupRequestDTO;
 import com.pm.authservice.model.Role;
 import com.pm.authservice.model.User;
 import com.pm.authservice.util.JwtUtil;
-import com.pm.commonutils.enums.RoleType;
+import com.pm.commonmodels.enums.RoleType;
 import com.pm.commonutils.exceptions.NotFoundException;
 import com.pm.commonutils.exceptions.ValidationErrorException;
 import io.jsonwebtoken.JwtException;

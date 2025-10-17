@@ -3,8 +3,8 @@ package com.pm.patientservice.service;
 
 import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
-import com.pm.patientservice.exception.AlreadyExistsException;
-import com.pm.patientservice.exception.NotFoundException;
+import com.pm.commonutils.exceptions.AlreadyExistException;
+import com.pm.commonutils.exceptions.NotFoundException;
 import com.pm.patientservice.grpc.BillingServiceGrpcClient;
 import com.pm.patientservice.kafka.KafkaProducer;
 import com.pm.patientservice.mapper.PatientMapper;
@@ -32,10 +32,6 @@ public class PatientService {
     }
 
     public PatientResponseDTO create(PatientRequestDTO dto) {
-        boolean isPatientExists = repository.existsByEmail(dto.getEmail());
-        if (isPatientExists) {
-            throw new AlreadyExistsException(dto.getEmail() + " email is already in use.");
-        }
         Patient patient = PatientMapper.toModel(dto);
         repository.save(patient);
 
@@ -44,7 +40,7 @@ public class PatientService {
         );
 
         kafkaProducer.sendMessage(patient);
-        
+
         return PatientMapper.toDto(patient);
     }
 

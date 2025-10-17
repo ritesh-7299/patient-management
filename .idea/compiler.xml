@@ -10,11 +10,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="auth-service" />
+        <module name="common-models" />
+        <module name="infrastructure" />
         <module name="analytics-service" />
         <module name="api-gateway" />
-        <module name="auth-service" />
         <module name="common-utils" />
-        <module name="infrastructure" />
         <module name="billing-service" />
       </profile>
       <profile name="Annotation profile for patient-service" enabled="true">
@@ -34,6 +35,7 @@
       <module name="api-gateway" options="-parameters" />
       <module name="auth-service" options="-parameters" />
       <module name="billing-service" options="-parameters" />
+      <module name="common-models" options="" />
       <module name="common-utils" options="-parameters" />
       <module name="patient-service" options="-parameters" />
     </option>

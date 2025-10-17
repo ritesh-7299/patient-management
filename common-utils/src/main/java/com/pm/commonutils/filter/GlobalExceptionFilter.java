@@ -5,10 +5,12 @@ import com.pm.commonutils.exceptions.NotFoundException;
 import com.pm.commonutils.exceptions.UnauthorizedException;
 import com.pm.commonutils.exceptions.ValidationErrorException;
 import com.pm.commonutils.response.ErrorResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -59,9 +61,13 @@ public class GlobalExceptionFilter {
         return new ResponseEntity<ErrorResponse<?>>(new ErrorResponse<String>(message), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ErrorResponse<?>> handleUnauthorizedException(AuthorizationDeniedException ex) {
+        return new ResponseEntity<ErrorResponse<?>>(new ErrorResponse<String>(ex.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse<?>> handleGeneralError(Exception ex) {
-        log.error("\ngeneral error::" + ex);
+    public ResponseEntity<ErrorResponse<?>> handleGeneralError(Exception ex, HttpServletResponse res) {
         return new ResponseEntity<ErrorResponse<?>>(new ErrorResponse<String>("Something went wrong"),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -1,4 +1,4 @@
-package com.pm.commonutils.enums;
+package com.pm.commonmodels.enums;
 
 public enum RoleType {
     ADMIN("Admin"),

@@ -2,11 +2,10 @@ package com.pm.authservice.service;
 
 import com.pm.authservice.model.Role;
 import com.pm.authservice.repository.RoleRepository;
-import com.pm.commonutils.enums.RoleType;
+import com.pm.commonmodels.enums.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service

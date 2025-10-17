@@ -1,6 +1,6 @@
 package com.pm.authservice.model;
 
-import com.pm.commonutils.enums.RoleType;
+import com.pm.commonmodels.enums.RoleType;
 import com.pm.commonutils.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;

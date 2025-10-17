@@ -26,6 +26,4 @@ public class Patient {
 
     @Column(unique = true)
     private String email;
-
-
 }

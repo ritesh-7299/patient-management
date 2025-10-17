@@ -11,6 +11,10 @@
           <option value="infrastructure" />
           <option value="common-utils" />
           <option value="auth-service" />
+          <option value="patient-service" />
+          <option value="api-gateway" />
+          <option value="api-gateway" />
+          <option value="auth-service" />
         </list>
       </option>
       <option name="ignoredPackages">
@@ -21,10 +25,18 @@
           <option value="io.netty:netty-handler:4.1.115.Final" />
           <option value="ch.qos.logback:logback-core:1.5.18" />
           <option value="ch.qos.logback:logback-core:1.5.18" />
+          <option value="ch.qos.logback:logback-core:1.5.18" />
+          <option value="ch.qos.logback:logback-core:1.5.18" />
+          <option value="org.springframework.cloud:spring-cloud-gateway-server:4.2.4" />
+          <option value="org.apache.commons:commons-lang3:3.17.0" />
         </list>
       </option>
       <option name="ignoredReasons">
         <list>
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />
